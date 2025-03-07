@@ -20,5 +20,6 @@ func _process(delta):
 		pressing_time -= 1.0 * delta
 
 func pressed():
+	if pressing_time > 0.0: return
 	keypad.pressed(button_number)
-	pressing_time = 0.5
+	pressing_time = 0.65

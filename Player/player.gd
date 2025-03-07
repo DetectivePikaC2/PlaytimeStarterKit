@@ -7,6 +7,8 @@ extends CharacterBody3D
 @export_group("Movement")
 @export var movable: bool = true
 @export_group("Grabpack")
+@export var flashlight: bool = false
+@export var flashlight_togglable: bool = false
 @export var start_lowered: bool = false
 #0 is no grabpack, and numbers 1 and 2 are grabpack versions 1 and 2.
 @export_range(0, 2) var starting_grabpack: int = 0
@@ -72,6 +74,7 @@ var swinging = false
 var swinging_point: Vector3 = Vector3.ZERO
 
 @onready var hook_controller: HookController = $HookController
+@onready var flashlight_node: Node3D = $Grabpack/Flashlight
 
 func _ready() -> void:
 	capture_mouse(true)
@@ -176,6 +179,9 @@ func _physics_process(delta: float) -> void:
 			velocity.z = desired_velocity.z
 
 	move_and_slide()
+	
+	#Handle Flashlight
+	flashlight_node.visible = flashlight
 
 func capture_mouse(capture_mode: bool) -> void:
 	if capture_mode:

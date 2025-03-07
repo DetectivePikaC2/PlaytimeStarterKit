@@ -5,7 +5,10 @@ extends Node3D
 @export_range(1, 2) var grabpacK_number: int = 1
 @export var play_collect_sound: bool = true
 
+signal collected
+
 func collect():
+	collected.emit()
 	hand_grab.release_grabbed()
 	if play_collect_sound:
 		Grabpack.player.sound_manager.collect()

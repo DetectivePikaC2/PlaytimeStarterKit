@@ -21,6 +21,7 @@ const DEFAULT_TEXTURE = preload("res://Interface/Inventory/ItemIcons/T_UI_RedHan
 
 @onready var left_hand = $Pack/LeftHandContainer
 @onready var right_hand = $Pack/RightHandContainer
+@onready var canon_right_animation: AnimationPlayer = $Pack/CanonRightAnimation
 
 var sway_speed: float = 30.0
 var grabpack_equipped: bool = true
@@ -30,6 +31,7 @@ var current_grabpack: int = 0
 var current_grabpack_node: Node3D = null
 var current_grabpack_skeleton_node: Skeleton3D = null
 var grabpack_queue: int = 0
+var pack_bone_data_node: Node = null
 
 var grabpack_switchable_hands: bool = false
 var grabpack_usable: bool = false
@@ -106,7 +108,8 @@ func set_grabpack(grabpack_index: int):
 
 func update_grabpack_data():
 	_reset_attachments()
-
+	
+	pack_bone_data_node = null
 	grabpack_switchable_hands = current_grabpack_node.has_node("GrabpackSwitchHands")
 	grabpack_usable = current_grabpack_node.has_node("GrabpackLaunchable")
 
@@ -117,6 +120,7 @@ func update_grabpack_data():
 		return
 	
 	var pack_bone_data = current_grabpack_node.get_node("GrabpackHandAttachmentData")
+	pack_bone_data_node = pack_bone_data
 	current_grabpack_skeleton_node = pack_bone_data.skeleton
 
 	left_arm_attach.scale = pack_bone_data.attachment_size
@@ -166,6 +170,19 @@ func _input(_event):
 	if Input.is_action_pressed("f") and Input.is_action_pressed("u"):
 		left_hand.play_animation("middle")
 		right_hand.play_animation("middle")
+	if Input.is_action_just_pressed("flashlight"):
+		if player.flashlight_togglable:
+			if pack_bone_data_node and pack_bone_data_node.use_flashlight_animation:
+				if not player.flashlight:
+					current_grabpack_node.get_node("AnimationPlayer").play("flashlight_on")
+					if not canon_right_animation.is_playing():
+						canon_right_animation.play("flashlight_on")
+				else:
+					current_grabpack_node.get_node("AnimationPlayer").play("flashlight_off")
+					if not canon_right_animation.is_playing():
+						canon_right_animation.play("flashlight_off")
+				player.flashlight = !player.flashlight
+				sound_manager.toggle_flashlight()
 
 func _reset_attachments():
 	attachment_left.bone_idx = 0

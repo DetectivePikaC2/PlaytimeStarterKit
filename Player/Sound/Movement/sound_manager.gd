@@ -2,6 +2,9 @@ extends Node
 
 @onready var player: CharacterBody3D = $".."
 
+func toggle_flashlight():
+	get_node("flashlight").play()
+
 func step():
 	var walk_node: String = "none"
 	

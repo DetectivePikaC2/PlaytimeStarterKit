@@ -9,7 +9,7 @@ var is_walking = false
 var is_falling = false
 var is_crouching = false
 var is_sidel_animation = false
-var tilt_lerp: float = 5.0
+var tilt_lerp: float = 6.5
 var start_tilt_lerp: float = 3.5
 @onready var idle_animation = $"../Pack/IdleAnimation"
 @onready var walk_animation = $"../Pack/WalkAnimation"
@@ -39,6 +39,14 @@ func handle_grabpack_animation(delta):
 	var walking_vector = Input.get_vector("left", "right", "forward", "back")
 	if not is_falling:
 		if not walking_vector == Vector2.ZERO:
+			if is_crouching:
+				walk_animation.speed_scale = 0.7
+			elif player.is_squeezing:
+				walk_animation.speed_scale = 1.0
+			elif player.is_sprinting:
+				walk_animation.speed_scale = 2.4
+			else:
+				walk_animation.speed_scale = 1.75
 			if player.is_squeezing:
 				if not is_sidel_animation:
 					walk_animation.play("WalkSidel")
@@ -51,14 +59,6 @@ func handle_grabpack_animation(delta):
 					walk_animation.play("walk")
 					walk_animation.speed_scale = 1.5
 					is_walking = true
-			if is_crouching:
-				walk_animation.speed_scale = 0.7
-			elif player.is_squeezing:
-				walk_animation.speed_scale = 1.0
-			elif player.is_sprinting:
-				walk_animation.speed_scale = 2.4
-			else:
-				walk_animation.speed_scale = 1.75
 		else:
 			if is_walking or is_sidel_animation:
 				walk_animation.play("StopWalking")

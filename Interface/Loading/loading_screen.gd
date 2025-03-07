@@ -27,6 +27,7 @@ func _process(_delta):
 		_start_outro_animation()
 
 func _start_outro_animation() -> void:
+	get_tree().paused = false
 	animation_player.play("end_load")
 	await Signal(animation_player, "animation_finished")
 	self.queue_free()

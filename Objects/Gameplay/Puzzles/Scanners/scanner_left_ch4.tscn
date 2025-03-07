@@ -1,4 +1,4 @@
-[gd_scene load_steps=32 format=4 uid="uid://mgaeb7vr4f7v"]
+[gd_scene load_steps=34 format=4 uid="uid://mgaeb7vr4f7v"]
 
 [ext_resource type="Script" uid="uid://bioaue0c67ol3" path="res://Objects/Gameplay/Puzzles/Scanners/Scripts/scanner_left_ch4.gd" id="1_w413f"]
 [ext_resource type="Texture2D" uid="uid://cwnbsxixha14m" path="res://Objects/Gameplay/Puzzles/Scanners/Models/T_HandScanner_BC.png" id="2_5paj6"]
@@ -132,6 +132,23 @@ tracks/1/keys = {
 "values": [Color(0.141348, 0.376416, 1, 1)]
 }
 
+[sub_resource type="Animation" id="Animation_b14yf"]
+resource_name = "blank"
+length = 0.001
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Text:surface_material_override/0:emission")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(0, 0, 0, 1)]
+}
+
 [sub_resource type="Animation" id="Animation_tgr55"]
 resource_name = "error"
 length = 2.5
@@ -261,6 +278,7 @@ tracks/1/keys = {
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_68hs7"]
 _data = {
 &"RESET": SubResource("Animation_vhg7k"),
+&"blank": SubResource("Animation_b14yf"),
 &"error": SubResource("Animation_tgr55"),
 &"ready": SubResource("Animation_adq8v"),
 &"scan_loop": SubResource("Animation_u2cos"),
@@ -280,6 +298,22 @@ tracks/0/keys = {
 "transitions": PackedFloat32Array(1),
 "update": 0,
 "values": [Color(0.271228, 0.468024, 1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_528q8"]
+resource_name = "blank"
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("SM_HandScanner_NoWire:surface_material_override/1:emission")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(0, 0, 0, 1)]
 }
 
 [sub_resource type="Animation" id="Animation_l1mi8"]
@@ -333,6 +367,7 @@ tracks/0/keys = {
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_8tkly"]
 _data = {
 &"RESET": SubResource("Animation_3yrwy"),
+&"blank": SubResource("Animation_528q8"),
 &"error": SubResource("Animation_l1mi8"),
 &"ready": SubResource("Animation_nsq8o"),
 &"verified": SubResource("Animation_u88tv")
@@ -367,7 +402,7 @@ shape = SubResource("BoxShape3D_nsi4a")
 script = ExtResource("5_5paj6")
 grab_animation = "straight"
 grab_marker = NodePath("HandPositionMarker")
-metadata/_custom_type_script = ExtResource("5_5paj6")
+metadata/_custom_type_script = "uid://d4joakp74nxnn"
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="HandGrab"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.3, 0.15)

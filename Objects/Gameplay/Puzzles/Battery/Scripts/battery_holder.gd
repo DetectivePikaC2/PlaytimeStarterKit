@@ -2,6 +2,10 @@ extends StaticBody3D
 
 @export var allow_battery_removal: bool = false
 @export var starts_with_battery: bool = false
+@export var powers_puzzle: bool = false
+@export var puzzle_node: NodePath
+@export var powered_puzzle_on_signal: String = ""
+@export var powered_puzzle_off_signal: String = ""
 
 @onready var battery = $Battery
 
@@ -29,6 +33,9 @@ func _ready():
 		attached_battery.global_transform = battery.global_transform
 	else:
 		get_node("BatteryNode").queue_free()
+	if powers_puzzle:
+		if not powered_puzzle_on_signal == "": connect("powered_on", Callable(get_node(puzzle_node), powered_puzzle_on_signal))
+		if not powered_puzzle_off_signal == "": connect("powered_off", Callable(get_node(puzzle_node), powered_puzzle_off_signal))
 
 func release_battery():
 	contains_battery = false

@@ -25,6 +25,12 @@ func _ready():
 			puzzle_node.connect(toggle_signal, Callable(connected_gate.toggle))
 	if connected_door:
 		if use_enable_signal:
-			puzzle_node.connect(enable_signal, Callable(connected_door.opendoor))
+			puzzle_node.connect(enable_signal, Callable(open_door))
 		if use_disable_signal:
-			puzzle_node.connect(disable_signal, Callable(connected_door.closedoor))
+			puzzle_node.connect(disable_signal, Callable(close_door))
+func open_door():
+	connected_door.locked = false
+	connected_door.opendoor()
+func close_door():
+	connected_door.locked = true
+	connected_door.closedoor()

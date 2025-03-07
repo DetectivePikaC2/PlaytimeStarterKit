@@ -1,4 +1,4 @@
-[gd_scene load_steps=85 format=4 uid="uid://bifmmultpyw0x"]
+[gd_scene load_steps=88 format=4 uid="uid://bifmmultpyw0x"]
 
 [ext_resource type="Script" uid="uid://b7a5hf3ljmyj5" path="res://Level/Scripts/test_map.gd" id="1_d6ggl"]
 [ext_resource type="Material" uid="uid://dl7krlcnai0qx" path="res://Level/Assets/Materials/ProtoDark.tres" id="1_teiv4"]
@@ -21,7 +21,6 @@
 [ext_resource type="PackedScene" uid="uid://mgaeb7vr4f7v" path="res://Objects/Gameplay/Puzzles/Scanners/scanner_left_ch4.tscn" id="11_8jck2"]
 [ext_resource type="Script" uid="uid://dhjsvwgpbf3bx" path="res://Objects/Gameplay/event_trigger.gd" id="12_ba0rh"]
 [ext_resource type="PackedScene" uid="uid://djxegucg0r1te" path="res://Objects/Gameplay/Puzzles/Scanners/scanner_right_ch4.tscn" id="12_oxf1b"]
-[ext_resource type="Script" uid="uid://d2uwlj4ces3de" path="res://Objects/Gameplay/Puzzles/Scanners/Scripts/scanner_linker.gd" id="13_561k3"]
 [ext_resource type="Script" uid="uid://boad7pm33g3dk" path="res://Objects/Gameplay/tutorial_trigger.gd" id="13_eu3rf"]
 [ext_resource type="PackedScene" uid="uid://baiftjqeipxda" path="res://Objects/Gameplay/Pressable/lever.tscn" id="14_eyvyl"]
 [ext_resource type="Script" uid="uid://ctgx2lydmmp1p" path="res://Objects/Gameplay/Pressable/Scripts/lever_linker.gd" id="15_m6xow"]
@@ -56,11 +55,11 @@
 [ext_resource type="PackedScene" uid="uid://5xwl88xktvuo" path="res://Player/Grabpack/Hands/flare.tscn" id="38_sj8vn"]
 [ext_resource type="Texture2D" uid="uid://et73llohisu2" path="res://TEMP/Screenshot_2025-02-22_150242.png" id="39_sj8vn"]
 [ext_resource type="PackedScene" uid="uid://cd47wb6hqy68j" path="res://Objects/Gameplay/ControlPanel/keypad.tscn" id="41_flyvg"]
-[ext_resource type="Script" uid="uid://cjn31emt24v2q" path="res://Objects/Gameplay/objective_trigger.gd" id="42_lxs5s"]
 [ext_resource type="PackedScene" uid="uid://c8xb5tk36xptf" path="res://Objects/Gameplay/Extra/limón.tscn" id="48_mtaok"]
 [ext_resource type="PackedScene" uid="uid://cqepor71t6ham" path="res://Objects/Gameplay/HandFunctions/grabpack_item.tscn" id="48_u8ypr"]
 [ext_resource type="PackedScene" uid="uid://cmy5x06xqde83" path="res://Objects/Gameplay/HandFunctions/Grabpack/grabpack_one_item_mesh.tscn" id="49_0ptqi"]
 [ext_resource type="PackedScene" uid="uid://dqt3cqw43ouuq" path="res://Objects/Gameplay/HandFunctions/Grabpack/grabpack_two_item_mesh.tscn" id="50_dudgs"]
+[ext_resource type="Script" uid="uid://b1ny4m5gkjskn" path="res://Objects/Environment/Scripts/flicker_light.gd" id="54_lxs5s"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_3mqk5"]
 sky_horizon_color = Color(1, 0.841716, 0.366897, 1)
@@ -152,7 +151,7 @@ _surfaces = [{
 }]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_2qwny"]
-size = Vector3(11.5, 4.9, 27)
+size = Vector3(14.6, 7.2, 14.5)
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_v8n35"]
 shader = ExtResource("25_nip8n")
@@ -183,14 +182,17 @@ density = 0.0
 albedo = Color(1, 0, 0, 1)
 density_texture = SubResource("NoiseTexture3D_stmen")
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_eu3rf"]
-size = Vector3(2.7, 1, 5.2)
-
-[sub_resource type="BoxShape3D" id="BoxShape3D_ba0rh"]
-size = Vector3(5.6, 1, 2.7)
-
 [sub_resource type="BoxShape3D" id="BoxShape3D_flyvg"]
 size = Vector3(4.7, 0.7, 9.8)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_lxs5s"]
+size = Vector3(2.8, 0.7, 2.8)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_36i0g"]
+size = Vector3(2.8, 0.7, 1.9)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_uaoho"]
+size = Vector3(3.7, 0.7, 3)
 
 [sub_resource type="ORMMaterial3D" id="ORMMaterial3D_3w01h"]
 albedo_texture = ExtResource("36_opkjn")
@@ -312,6 +314,16 @@ bind/29/name = &"ANIM_end_083"
 bind/29/bone = -1
 bind/29/pose = Transform3D(100, 0, 0, 0, 100, 0, 0, 0, 100, 0, 0, 0)
 
+[sub_resource type="Gradient" id="Gradient_lxs5s"]
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_flyvg"]
+noise_type = 0
+frequency = 0.2337
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_36i0g"]
+color_ramp = SubResource("Gradient_lxs5s")
+noise = SubResource("FastNoiseLite_flyvg")
+
 [node name="TestMap" type="Node3D"]
 script = ExtResource("1_d6ggl")
 
@@ -326,19 +338,25 @@ environment = SubResource("Environment_c5qun")
 [node name="Csg" type="Node3D" parent="."]
 
 [node name="CSGBox3D" type="CSGBox3D" parent="Csg"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.55, 0, -4.76837e-07)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.35, 0, -4.76837e-07)
 use_collision = true
-size = Vector3(36.5, 0.2, 36.4)
+size = Vector3(50.3, 0.2, 36.4)
 material = ExtResource("1_teiv4")
 
 [node name="CSGBox3D22" type="CSGBox3D" parent="Csg"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -14.5, 2.7, -5.85)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -18.3, 2.7, 4.2)
 use_collision = true
-size = Vector3(5.8, 0.2, 8.3)
+size = Vector3(5.8, 0.2, 10)
+material = ExtResource("1_teiv4")
+
+[node name="CSGBox3D31" type="CSGBox3D" parent="Csg"]
+transform = Transform3D(1, 0, 0, 0, 0.866025, -0.5, 0, 0.5, 0.866025, -20.5, 1.30928, 11.5815)
+use_collision = true
+size = Vector3(1.4, 0.2, 5.6)
 material = ExtResource("1_teiv4")
 
 [node name="CSGBox3D17" type="CSGBox3D" parent="Csg"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -14.45, 1.3, -2.5)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -18.25, 1.3, 8.4)
 use_collision = true
 size = Vector3(5.9, 2.8, 1.8)
 material = ExtResource("1_teiv4")
@@ -350,25 +368,25 @@ size = Vector3(1.5, 1.4, 2)
 material = ExtResource("1_teiv4")
 
 [node name="CSGBox3D18" type="CSGBox3D" parent="Csg"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -11.6, 1.3, -5.85)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -15.4, 1.3, 5.05)
 use_collision = true
 size = Vector3(0.2, 2.8, 8.5)
 material = ExtResource("1_teiv4")
 
 [node name="CSGBox3D21" type="CSGBox3D" parent="Csg"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -14.45, 1.3, -10)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -18.25, 1.3, 0.9)
 use_collision = true
 size = Vector3(5.9, 2.8, 0.2)
 material = ExtResource("1_teiv4")
 
 [node name="CSGBox3D20" type="CSGBox3D" parent="Csg"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -16.4, 0.55, -6.7)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -20.2, 0.55, 4.2)
 use_collision = true
 size = Vector3(2, 1.3, 6.8)
 material = ExtResource("1_teiv4")
 
 [node name="CSGBox3D19" type="CSGBox3D" parent="Csg"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -17.4, 1.3, -5.85)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -21.2, 1.3, 5.05)
 use_collision = true
 size = Vector3(0.2, 2.8, 8.5)
 material = ExtResource("1_teiv4")
@@ -380,50 +398,161 @@ size = Vector3(1.4, 0.2, 5.1)
 material = ExtResource("1_teiv4")
 
 [node name="CSGBox3D14" type="CSGBox3D" parent="Csg"]
-transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 7.425, 7.7, -7.675)
+transform = Transform3D(1, 0, -1.06581e-14, 0, 1, 0, 1.06581e-14, 0, 1, 0.0499997, 7.7, -12.6)
 use_collision = true
-size = Vector3(1.4, 0.2, 3.4)
+size = Vector3(1.4, 0.2, 11.3)
 material = ExtResource("1_teiv4")
-
-[node name="CSGBox3D7" type="CSGBox3D" parent="Csg"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.8, 1.75, 15.1)
-use_collision = true
-size = Vector3(19.8, 3.7, 6.2)
-material = ExtResource("1_teiv4")
-
-[node name="CSGBox3D16" type="CSGBox3D" parent="Csg"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.8, 5.55, 15.1)
-use_collision = true
-size = Vector3(0.2, 4.1, 6.2)
-material = ExtResource("1_teiv4")
-
-[node name="CSGBox3D" type="CSGBox3D" parent="Csg/CSGBox3D16"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.752149, 0.343456)
-operation = 2
-size = Vector3(1, 2.6, 1.18691)
 
 [node name="CSGBox3D10" type="CSGBox3D" parent="Csg"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 11.4, 3.75, 10.9)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 11.25, 3.75, 7.3)
 use_collision = true
-size = Vector3(0.4, 7.7, 14.8)
+size = Vector3(0.1, 7.7, 22)
+material = ExtResource("1_teiv4")
+
+[node name="CSGBox3D" type="CSGBox3D" parent="Csg/CSGBox3D10"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.7, -5.5)
+operation = 2
+size = Vector3(1, 2.7, 1.2)
+
+[node name="CSGBox3D2" type="CSGBox3D" parent="Csg/CSGBox3D10"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.7, 8.3)
+operation = 2
+size = Vector3(1, 2.7, 1.2)
+
+[node name="CSGBox3D24" type="CSGBox3D" parent="Csg"]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 17.35, 3.75, 0.299999)
+use_collision = true
+size = Vector3(0.1, 7.7, 12.2)
+material = ExtResource("1_teiv4")
+
+[node name="CSGBox3D37" type="CSGBox3D" parent="Csg"]
+transform = Transform3D(-1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, 2.25, 3.75, -0.0500004)
+use_collision = true
+size = Vector3(0.1, 7.7, 7.3)
+material = ExtResource("1_teiv4")
+
+[node name="CSGBox3D38" type="CSGBox3D" parent="Csg"]
+transform = Transform3D(1.31134e-07, 0, 1, 0, 1, 0, -1, 0, 1.31134e-07, 6.75, 3.75, -3.65)
+use_collision = true
+size = Vector3(0.1, 7.7, 9.1)
+material = ExtResource("1_teiv4")
+
+[node name="CSGBox3D39" type="CSGBox3D" parent="Csg"]
+transform = Transform3D(1.31134e-07, 0, 1, 0, 1, 0, -1, 0, 1.31134e-07, -14.85, 3.75, 0.75)
+use_collision = true
+size = Vector3(0.1, 7.7, 13.7)
+material = ExtResource("1_teiv4")
+
+[node name="CSGBox3D2" type="CSGBox3D" parent="Csg/CSGBox3D39"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.38419e-06, 0.25, -3.85)
+operation = 2
+size = Vector3(1, 2.6, 1.2)
+
+[node name="CSGBox3D40" type="CSGBox3D" parent="Csg"]
+transform = Transform3D(-1, 0, 8.74226e-08, 0, 1, 0, -8.74226e-08, 0, -1, -21.45, 3.75, -1.45)
+use_collision = true
+size = Vector3(0.1, 7.7, 33.9)
+material = ExtResource("1_teiv4")
+
+[node name="CSGBox3D41" type="CSGBox3D" parent="Csg"]
+transform = Transform3D(-4.37112e-08, 0, -1, 0, 1, 0, 1, 0, -4.37112e-08, -16, 3.75, -12.95)
+use_collision = true
+size = Vector3(0.1, 7.7, 11)
+material = ExtResource("1_teiv4")
+
+[node name="CSGBox3D47" type="CSGBox3D" parent="Csg"]
+transform = Transform3D(-4.37112e-08, 0, -1, 0, 1, 0, 1, 0, -4.37112e-08, -14.7, 3.75, 15.45)
+use_collision = true
+size = Vector3(0.1, 7.7, 13.6)
+material = ExtResource("1_teiv4")
+
+[node name="CSGBox3D46" type="CSGBox3D" parent="Csg"]
+transform = Transform3D(-4.37112e-08, 0, -1, 0, 1, 0, 1, 0, -4.37112e-08, -5.75, 3.75, -17.75)
+use_collision = true
+size = Vector3(0.1, 7.7, 31.5)
+material = ExtResource("1_teiv4")
+
+[node name="CSGBox3D44" type="CSGBox3D" parent="Csg"]
+transform = Transform3D(-4.37112e-08, 0, -1, 0, 1, 0, 1, 0, -4.37112e-08, -10.85, 3.75, -14.95)
+use_collision = true
+size = Vector3(0.1, 7.7, 5.4)
+material = ExtResource("1_teiv4")
+
+[node name="CSGBox3D45" type="CSGBox3D" parent="Csg"]
+transform = Transform3D(-4.37112e-08, 0, -1, 0, 1, 0, 1, 0, -4.37112e-08, -18.5, 3.75, -13.9)
+use_collision = true
+size = Vector3(2.2, 7.7, 6.1)
+material = ExtResource("1_teiv4")
+
+[node name="CSGBox3D" type="CSGBox3D" parent="Csg/CSGBox3D45"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.85, -1.9, 0.6)
+operation = 2
+size = Vector3(0.9, 3.8, 1.8)
+material = ExtResource("1_teiv4")
+
+[node name="CSGBox3D42" type="CSGBox3D" parent="Csg"]
+transform = Transform3D(-1, 0, 8.74226e-08, 0, 1, 0, -8.74226e-08, 0, -1, -10.55, 3.75, -6.15)
+use_collision = true
+size = Vector3(0.1, 7.7, 13.7)
+material = ExtResource("1_teiv4")
+
+[node name="CSGBox3D2" type="CSGBox3D" parent="Csg/CSGBox3D42"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.90735e-06, -2.4, 4.76837e-07)
+operation = 2
+size = Vector3(1, 2.7, 1.2)
+
+[node name="CSGBox3D43" type="CSGBox3D" parent="Csg"]
+transform = Transform3D(-1, 0, 8.74226e-08, 0, 1, 0, -8.74226e-08, 0, -1, -8.4, 3.75, -8.55)
+use_collision = true
+size = Vector3(0.6, 7.7, 18.5)
+material = ExtResource("1_teiv4")
+
+[node name="CSGBox3D" type="CSGBox3D" parent="Csg/CSGBox3D43"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.23978e-05, -2.45, 7.65)
+operation = 2
+size = Vector3(2, 2.5, 1.6)
 material = ExtResource("1_teiv4")
 
 [node name="CSGBox3D15" type="CSGBox3D" parent="Csg"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8.1, 3.75, 0.0499992)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8.1, 3.75, 9.5)
 use_collision = true
-size = Vector3(0.2, 7.7, 36.5)
+size = Vector3(0.2, 7.7, 17.6)
 material = ExtResource("1_teiv4")
 
 [node name="CSGBox3D" type="CSGBox3D" parent="Csg/CSGBox3D15"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -2.45, 2.15)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -2.45, -2.1)
 operation = 2
-size = Vector3(0.4, 2.9, 3.1)
+size = Vector3(0.4, 3.1, 3.1)
 material = ExtResource("1_teiv4")
 
 [node name="CSGBox3D11" type="CSGBox3D" parent="Csg"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.8, 3.75, 18.15)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.55, 3.75, 18.35)
 use_collision = true
-size = Vector3(19.8, 7.7, 0.3)
+size = Vector3(19.3, 7.7, 12.5)
+material = ExtResource("1_teiv4")
+
+[node name="CSGBox3D" type="CSGBox3D" parent="Csg/CSGBox3D11"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.7, -0.4, -2.7)
+operation = 2
+size = Vector3(6.2, 2.9, 2)
+material = ExtResource("1_teiv4")
+
+[node name="CSGBox3D2" type="CSGBox3D" parent="Csg/CSGBox3D11"]
+transform = Transform3D(0.866025, 0, 0.5, 0, 1, 0, -0.5, 0, 0.866025, 0.959936, -0.4, -0.783495)
+operation = 2
+size = Vector3(7.6, 2.9, 2.4)
+material = ExtResource("1_teiv4")
+
+[node name="CSGBox3D3" type="CSGBox3D" parent="Csg/CSGBox3D11"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.46506, -0.4, 1.72321)
+operation = 2
+size = Vector3(7.6, 2.9, 3.8)
+material = ExtResource("1_teiv4")
+
+[node name="CSGBox3D4" type="CSGBox3D" parent="Csg/CSGBox3D11"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.36506, -1.05, -3.5768)
+operation = 2
+size = Vector3(1.6, 1.6, 7)
 material = ExtResource("1_teiv4")
 
 [node name="CSGBox3D8" type="CSGBox3D" parent="Csg"]
@@ -439,9 +568,105 @@ size = Vector3(0.8, 0.9, 0.3)
 material = ExtResource("1_teiv4")
 
 [node name="CSGBox3D3" type="CSGBox3D" parent="Csg"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.75, 1.95, 0.6)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 14.7, 0.9, 2)
 use_collision = true
-size = Vector3(9.9, 4.1, 6.2)
+size = Vector3(15, 2, 3)
+material = ExtResource("1_teiv4")
+
+[node name="CSGBox3D25" type="CSGBox3D" parent="Csg"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12.7, 0.9, 9.4)
+use_collision = true
+size = Vector3(3, 2, 3)
+material = ExtResource("1_teiv4")
+
+[node name="CSGBox3D28" type="CSGBox3D" parent="Csg"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12, 0.9, 12.4)
+use_collision = true
+size = Vector3(1.6, 2, 3)
+material = ExtResource("1_teiv4")
+
+[node name="CSGBox3D29" type="CSGBox3D" parent="Csg"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 18.4, 0.9, 15.65)
+use_collision = true
+size = Vector3(14.4, 2, 3.5)
+material = ExtResource("1_teiv4")
+
+[node name="CSGBox3D30" type="CSGBox3D" parent="Csg"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 21.95, 3.76406, 14.15)
+use_collision = true
+size = Vector3(0.1, 7.7, 6.5)
+material = ExtResource("1_teiv4")
+
+[node name="CSGBox3D36" type="CSGBox3D" parent="Csg"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 23.6, 3.81406, 4.1)
+use_collision = true
+size = Vector3(3.4, 7.8, 7.6)
+material = ExtResource("1_teiv4")
+
+[node name="CSGBox3D35" type="CSGBox3D" parent="Csg"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 25.25, 3.81406, 8.6)
+use_collision = true
+size = Vector3(0.1, 7.8, 16.6)
+material = ExtResource("1_teiv4")
+
+[node name="CSGBox3D32" type="CSGBox3D" parent="Csg"]
+transform = Transform3D(2.98023e-08, 0, -1, 0, 1, 0, 1, 0, 2.98023e-08, 16.6, 4.6, 17.3)
+use_collision = true
+size = Vector3(0.1, 5.8, 10.7)
+material = ExtResource("1_teiv4")
+
+[node name="CSGBox3D33" type="CSGBox3D" parent="Csg"]
+transform = Transform3D(2.98023e-08, 0, -1, 0, 1, 0, 1, 0, 2.98023e-08, 23.8, 5.05, 13.9)
+use_collision = true
+size = Vector3(0.1, 5.3, 3.7)
+material = ExtResource("1_teiv4")
+
+[node name="CSGBox3D27" type="CSGBox3D" parent="Csg"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 23.6, 0.9, 9.4)
+use_collision = true
+size = Vector3(3.4, 2, 3)
+material = ExtResource("1_teiv4")
+
+[node name="CSGBox3D34" type="CSGBox3D" parent="Csg"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 16.3, 6.85, 9.4)
+use_collision = true
+size = Vector3(10.4, 1.5, 3.5)
+material = ExtResource("1_teiv4")
+
+[node name="CSGBox3D26" type="CSGBox3D" parent="Csg"]
+transform = Transform3D(0.965926, 0, -0.258819, 0, 1, 0, 0.258819, 0, 0.965926, 12.5571, 1.87948, 5.72726)
+use_collision = true
+size = Vector3(1.1, 0.1, 5)
+material = ExtResource("1_teiv4")
+
+[node name="CSGBox3D23" type="CSGBox3D" parent="Csg"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.7, 0.9, 2)
+use_collision = true
+size = Vector3(5, 2, 3)
+material = ExtResource("1_teiv4")
+
+[node name="CSGBox3D" type="CSGBox3D" parent="Csg/CSGBox3D23"]
+transform = Transform3D(0.933849, -0.357667, 0, 0.357667, 0.933849, 0, 0, 0, 1, -0.192452, 1.06256, 0)
+operation = 2
+size = Vector3(5.73547, 2, 3)
+material = ExtResource("1_teiv4")
+
+[node name="CSGBox3D48" type="CSGBox3D" parent="Csg"]
+transform = Transform3D(2.98023e-08, 0, 1, 0, 1, 0, -1, 0, 2.98023e-08, 20.2, 0.9, 6)
+use_collision = true
+size = Vector3(5, 2, 3)
+material = ExtResource("1_teiv4")
+
+[node name="CSGBox3D" type="CSGBox3D" parent="Csg/CSGBox3D48"]
+transform = Transform3D(0.933849, -0.357667, 0, 0.357667, 0.933849, 0, 0, 0, 1, -0.192452, 1.06256, 0)
+operation = 2
+size = Vector3(5.73547, 2, 3)
+material = ExtResource("1_teiv4")
+
+[node name="CSGBox3D4" type="CSGBox3D" parent="Csg"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.825, 4.65, 2)
+use_collision = true
+size = Vector3(0.75, 2, 3)
 material = ExtResource("1_teiv4")
 
 [node name="CSGBox3D13" type="CSGBox3D" parent="Csg"]
@@ -498,26 +723,17 @@ operation = 2
 size = Vector3(3.1, 2.9, 1.4)
 material = ExtResource("1_teiv4")
 
-[node name="CSGBox3D4" type="CSGBox3D" parent="Csg"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.74268, 3.8, -7.25)
-use_collision = true
-size = Vector3(0.114648, 7.8, 21.9)
-material = ExtResource("1_teiv4")
-
-[node name="CSGBox3D" type="CSGBox3D" parent="Csg/CSGBox3D4"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.55, 7.75)
-operation = 2
-size = Vector3(0.4, 2.9, 3.1)
-material = ExtResource("1_teiv4")
-
-[node name="CSGBox3D2" type="CSGBox3D" parent="Csg/CSGBox3D4"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.55, -8.05)
-operation = 2
-size = Vector3(0.4, 2.9, 3.1)
-material = ExtResource("1_teiv4")
-
 [node name="Door" parent="Csg" instance=ExtResource("3_ojsmx")]
-transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -2.7, 3.6, 16)
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 11.2595, 1.89841, 1.25)
+locked = true
+
+[node name="Door2" parent="Csg" instance=ExtResource("3_ojsmx")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 11.2595, 1.89841, 16.15)
+locked = true
+
+[node name="Door3" parent="Csg" instance=ExtResource("3_ojsmx")]
+transform = Transform3D(1, 0, 1.06581e-14, 0, 1, 0, -1.06581e-14, 0, 1, -19.2405, 2.79841, 0.749999)
+locked = true
 
 [node name="Label3D" type="Label3D" parent="Csg"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.6, 1.9, -15.9474)
@@ -535,8 +751,19 @@ starts_with_battery = true
 transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -2.1, 0.4, 0)
 allow_battery_removal = true
 
+[node name="BatteryHolder3" parent="Puzzles" instance=ExtResource("2_3jmk0")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 11.3, 3.2, 14.4)
+allow_battery_removal = true
+powers_puzzle = true
+puzzle_node = NodePath("../HandScannerLeft")
+powered_puzzle_on_signal = "power_scanner"
+powered_puzzle_off_signal = "dispower_scanner"
+
 [node name="Battery" parent="Puzzles" instance=ExtResource("3_u7kn2")]
 transform = Transform3D(0.901221, -0.224144, 0.370891, -0.0173376, 0.836516, 0.547668, -0.433013, -0.5, 0.75, -1.1, 0.9, -5.5)
+
+[node name="Battery2" parent="Puzzles" instance=ExtResource("3_u7kn2")]
+transform = Transform3D(0.901221, -0.224144, 0.370891, -0.0173376, 0.836516, 0.547668, -0.433013, -0.5, 0.75, 23.4, 2.6, 14.2477)
 
 [node name="BatteryLinker" type="Node" parent="Puzzles" node_paths=PackedStringArray("battery_slots")]
 script = ExtResource("3_teiv4")
@@ -590,23 +817,31 @@ acceleration = 2.0
 transform = Transform3D(0.00582286, -1.27327e-06, 0.799979, -1.73266e-06, 0.8, 1.28592e-06, -0.799979, -1.74197e-06, 0.00582286, -5.26171e-07, 0.330595, -7.19934e-07)
 
 [node name="GrabHandle" parent="Puzzles" instance=ExtResource("9_8tp42")]
-transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 1.1, 7.6, 0)
-handle_behaviour = 1
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 18.3, 6.1, 9.5)
 
 [node name="GrabHandle2" parent="Puzzles" instance=ExtResource("9_8tp42")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.225, 7.6, -7.675)
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0.0499997, 7.6, -15.65)
+handle_behaviour = 1
 
 [node name="HandScannerLeft" parent="Puzzles" instance=ExtResource("11_8jck2")]
-transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 5.8, 5.4, -13.4)
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 11.2, 3.3, 16.6)
+powered = false
+
+[node name="PuzzleGateLinker" type="Node" parent="Puzzles/HandScannerLeft" node_paths=PackedStringArray("connected_door")]
+script = ExtResource("4_3mqk5")
+connected_door = NodePath("../../../Csg/Door2")
+puzzle = NodePath("..")
+enable_signal = "scan_success"
+use_disable_signal = false
+metadata/_custom_type_script = "uid://ckdvdouxaw4it"
 
 [node name="HandScannerRight" parent="Puzzles" instance=ExtResource("12_oxf1b")]
-transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 5.8, 5.4, -17.2)
-required_hand = "GreenHand"
-scanner_color = Color(0, 0.867674, 0, 1)
+transform = Transform3D(1, 0, 1.06581e-14, 0, 1, 0, -1.06581e-14, 0, 1, -17.4, 4.1, 0.799999)
+scanner_color = Color(1, 0, 0, 1)
 
 [node name="HandScannerRight2" parent="Puzzles" instance=ExtResource("12_oxf1b")]
 transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, -1.8, 1.5, 3.4)
-scan_time = 3.0
+scan_time = 10.0
 scanner_color = Color(1, 0, 0, 1)
 
 [node name="PuzzleGateLinker" type="Node" parent="Puzzles/HandScannerRight2" node_paths=PackedStringArray("connected_gate")]
@@ -617,30 +852,28 @@ enable_signal = "scan_success"
 use_disable_signal = false
 metadata/_custom_type_script = "uid://ckdvdouxaw4it"
 
-[node name="HandScannerRight3" parent="Puzzles" instance=ExtResource("12_oxf1b")]
-transform = Transform3D(-8.9407e-08, 0, 1, 0, 1, 0, -1, 0, -8.9407e-08, -8, 1.5, 8.5)
-scan_time = 3.0
-scanner_color = Color(1, 0, 0, 1)
-
-[node name="ScannerLinker" type="Node" parent="Puzzles" node_paths=PackedStringArray("scanners")]
-script = ExtResource("13_561k3")
-scanners = [NodePath("../HandScannerLeft"), NodePath("../HandScannerRight")]
-metadata/_custom_type_script = "uid://d2uwlj4ces3de"
-
-[node name="PuzzleGateLinker2" type="Node" parent="Puzzles" node_paths=PackedStringArray("connected_gate")]
-script = ExtResource("4_3mqk5")
-connected_gate = NodePath("../../Passages/Gate3")
-puzzle = NodePath("../ScannerLinker")
-enable_signal = "scanners_finished"
-use_disable_signal = false
-metadata/_custom_type_script = "uid://ckdvdouxaw4it"
-
 [node name="PuzzleGateLinker3" type="Node" parent="Puzzles" node_paths=PackedStringArray("connected_gate")]
 script = ExtResource("4_3mqk5")
 connected_gate = NodePath("../../Passages/Gate5")
 puzzle = NodePath("../PowerDirectorButton/CablePower2")
 enable_signal = "cable_powered"
 disable_signal = "cable_off"
+metadata/_custom_type_script = "uid://ckdvdouxaw4it"
+
+[node name="PuzzleGateLinker4" type="Node" parent="Puzzles" node_paths=PackedStringArray("connected_gate")]
+script = ExtResource("4_3mqk5")
+connected_gate = NodePath("../../Passages/Gate6")
+puzzle = NodePath("../PowerReceiver")
+enable_signal = "powered"
+use_disable_signal = false
+metadata/_custom_type_script = "uid://ckdvdouxaw4it"
+
+[node name="PuzzleGateLinker5" type="Node" parent="Puzzles" node_paths=PackedStringArray("connected_door")]
+script = ExtResource("4_3mqk5")
+connected_door = NodePath("../../Csg/Door3")
+puzzle = NodePath("../HandScannerRight")
+enable_signal = "scan_success"
+use_disable_signal = false
 metadata/_custom_type_script = "uid://ckdvdouxaw4it"
 
 [node name="Lever" parent="Puzzles" instance=ExtResource("14_eyvyl")]
@@ -683,7 +916,6 @@ mesh = SubResource("ArrayMesh_suxck")
 
 [node name="CablePower" type="Node" parent="Puzzles/PowerDirectorButton" node_paths=PackedStringArray("cable_mesh_node")]
 script = ExtResource("19_j8t6x")
-powered = true
 puzzle = NodePath("..")
 powerable_on = false
 powerable_off = false
@@ -694,6 +926,7 @@ metadata/_custom_type_script = "uid://cr7vgioayori4"
 
 [node name="CablePower2" type="Node" parent="Puzzles/PowerDirectorButton" node_paths=PackedStringArray("cable_mesh_node")]
 script = ExtResource("19_j8t6x")
+powered = true
 puzzle = NodePath("..")
 powerable_on = false
 powerable_off = false
@@ -708,13 +941,13 @@ transform = Transform3D(0.866025, -0.5, -2.18557e-08, 0, -4.37114e-08, 1, -0.5, 
 [node name="Gas" type="Node" parent="Puzzles"]
 
 [node name="PipeStraightMedium" parent="Puzzles/Gas" instance=ExtResource("22_suxck")]
-transform = Transform3D(-4.37114e-08, 0, -1, 8.74228e-08, -1, -3.82137e-15, -1, -8.74228e-08, 4.37114e-08, -8.6, 5.6, 6)
+transform = Transform3D(-4.37114e-08, 0, -1, 8.74228e-08, -1, -3.82137e-15, -1, -8.74228e-08, 4.37114e-08, -8.6, 5.6, 10.3)
 
 [node name="PipeConnection" parent="Puzzles/Gas" instance=ExtResource("22_hi01m")]
-transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, -8.7, 5.6, -1)
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, -8.7, 5.6, 3.3)
 
 [node name="PipeValve" parent="Puzzles/Gas" node_paths=PackedStringArray("fog_node", "gas_zone") instance=ExtResource("23_2qwny")]
-transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -8.6, 0.8, 6)
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -8.6, 0.8, 10.3)
 missing_valve = true
 gas_leak_direction = Vector3(0, 0, 4.49)
 fog_node = NodePath("../GasZone/FogVolume")
@@ -731,7 +964,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -14.3, 0, 2.8)
 script = ExtResource("24_2qwny")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Puzzles/Gas/GasZone"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.4, 2.45, -3.5)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.549999, 3.6, 5.15)
 shape = SubResource("BoxShape3D_2qwny")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="Puzzles/Gas/GasZone"]
@@ -754,17 +987,9 @@ volume_db = 10.0
 stream = ExtResource("28_sgpca")
 
 [node name="FogVolume" type="FogVolume" parent="Puzzles/Gas/GasZone"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.649999, 2.5, -3.55)
-size = Vector3(13.7, 4.6, 27.5)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.649999, 3.85, 5.1)
+size = Vector3(13.7, 7.3, 14.8)
 material = SubResource("FogMaterial_4yy1v")
-
-[node name="Button" parent="Puzzles" instance=ExtResource("24_hi01m")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.5, 0.1, 4.1)
-
-[node name="TooltipTrigger" type="Node" parent="Puzzles/Button"]
-script = ExtResource("33_y5541")
-signal_name = "pressed"
-tooltip_text = "I love doing anything 👍"
 
 [node name="Button2" parent="Puzzles" instance=ExtResource("24_hi01m")]
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 7.6, 1.5, -15.9504)
@@ -774,59 +999,51 @@ script = ExtResource("33_y5541")
 signal_name = "pressed"
 tooltip_text = "Get snuck upon"
 
-[node name="PuzzleGateLinker4" type="Node" parent="Puzzles" node_paths=PackedStringArray("connected_gate")]
+[node name="GreenReceiver" parent="Puzzles" instance=ExtResource("32_y8a4b")]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -8.7, 3.3, -16.2)
+
+[node name="PuzzleGateLinker" type="Node" parent="Puzzles/GreenReceiver" node_paths=PackedStringArray("connected_gate")]
 script = ExtResource("4_3mqk5")
-connected_gate = NodePath("../../Passages/Gate6")
-puzzle = NodePath("../Button")
-use_enable_signal = false
-use_disable_signal = false
-use_toggle_signal = true
-toggle_signal = "pressed"
+connected_gate = NodePath("../../../Passages/Gate8")
+puzzle = NodePath("..")
+enable_signal = "gained_power"
+disable_signal = "lost_power"
 metadata/_custom_type_script = "uid://ckdvdouxaw4it"
 
-[node name="GreenReceiver" parent="Puzzles" instance=ExtResource("32_y8a4b")]
-transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -8, 1.7, -8.4)
-
-[node name="GreenReceiver2" parent="Puzzles" instance=ExtResource("32_y8a4b")]
-transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -8, 3.7, -5.4)
-
-[node name="GreenReceiver3" parent="Puzzles" instance=ExtResource("32_y8a4b")]
-transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -8, 3.7, -8.4)
-
 [node name="GreenOutlet" parent="Puzzles" instance=ExtResource("33_0igi2")]
-transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -8, 1.7, -5.5)
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, -19.1, 1.7, -14.3)
 
 [node name="PowerOutlet" parent="Puzzles" instance=ExtResource("34_0igi2")]
-transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -2.7, 5, 13.4)
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, -1.7, 1.8, 12.1)
 
 [node name="PowerReceiver" parent="Puzzles" instance=ExtResource("34_g5rdf")]
-transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -2.7, 6.7, 13.4)
-power_poles = Array[NodePath]([NodePath("../PowerPole"), NodePath("../PowerPole2")])
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -8, 3.7, 7.4)
+power_poles = Array[NodePath]([NodePath("../MinecartPuzzle/Minecart2/PowerPole4")])
 
 [node name="PowerReceiver2" parent="Puzzles" instance=ExtResource("34_g5rdf")]
-transform = Transform3D(1.31134e-07, 0, -1, 0, 1, 0, 1, 0, 1.31134e-07, -2.2, 2.1, -10.3)
-power_poles = Array[NodePath]([NodePath("../PowerPole"), NodePath("../PowerPole2")])
-
-[node name="PowerPole" parent="Puzzles" instance=ExtResource("36_vi7rx")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 3.2, 13.7)
-
-[node name="PowerPole2" parent="Puzzles" instance=ExtResource("36_vi7rx")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6, 3.2, 15.9)
-
-[node name="PowerPole3" parent="Puzzles" instance=ExtResource("36_vi7rx")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.9, 3.2, 16.5)
+transform = Transform3D(-2.18557e-07, 0, 1, 0, 1, 0, -1, 0, -2.18557e-07, -21.4, 2.1, -4.9)
+power_poles = Array[NodePath]([NodePath(""), NodePath("")])
 
 [node name="EnhancedPowerPole" parent="Puzzles" instance=ExtResource("37_1qyy0")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.6, 0, 8.2)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -15.9, 0, -8.9)
 
 [node name="EnhancedPowerPole2" parent="Puzzles" instance=ExtResource("37_1qyy0")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.6, 0, -10.8)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -18.6, 0, -4.4)
 
 [node name="Turret" parent="Puzzles" instance=ExtResource("38_f0vfr")]
-transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -2.2, 0.1, 5)
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -14, 0.1, -3.9)
 
 [node name="Keypad" parent="Puzzles" instance=ExtResource("41_flyvg")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.1, 0.1)
+transform = Transform3D(4.37114e-08, -1, -3.9081e-15, -1, -4.37114e-08, 8.9407e-08, -8.9407e-08, 0, -1, 11.2039, 3.6, 2.9)
+code = 1234
+
+[node name="PuzzleGateLinker" type="Node" parent="Puzzles/Keypad" node_paths=PackedStringArray("connected_door")]
+script = ExtResource("4_3mqk5")
+connected_door = NodePath("../../../Csg/Door")
+puzzle = NodePath("..")
+enable_signal = "code_success"
+use_disable_signal = false
+metadata/_custom_type_script = "uid://ckdvdouxaw4it"
 
 [node name="Passages" type="Node" parent="."]
 
@@ -839,61 +1056,27 @@ transform = Transform3D(1, 0, -1.06581e-14, 0, 1, 0, 1.06581e-14, 0, 1, 0.13727,
 colour = 2
 
 [node name="Gate6" parent="Passages" instance=ExtResource("3_ea5ej")]
-transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -8.06273, 0, 2.2)
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -8.06273, 0, 7.4)
 colour = 2
 
 [node name="Gate5" parent="Passages" instance=ExtResource("3_ea5ej")]
 transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -2.16273, 0, -15.2)
 colour = 2
+open_by_defualt = true
+
+[node name="Gate8" parent="Passages" instance=ExtResource("3_ea5ej")]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -8.36273, 0, -16.2)
+colour = 2
 
 [node name="Gate4" parent="Passages" instance=ExtResource("3_ea5ej")]
 transform = Transform3D(-1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, 1.73727, 0, -7)
 colour = 3
-
-[node name="Gate2" parent="Passages" instance=ExtResource("3_ea5ej")]
-transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 5.73727, 4, 0.5)
-colour = 2
+open_by_defualt = false
 
 [node name="Gate3" parent="Passages" instance=ExtResource("3_ea5ej")]
 transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 5.73727, 4, -15.3)
-colour = 2
 
 [node name="Triggers" type="Node" parent="."]
-
-[node name="EventTrigger" type="Area3D" parent="Triggers"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 4.7, 0.6)
-script = ExtResource("12_ba0rh")
-metadata/_custom_type_script = "uid://dhjsvwgpbf3bx"
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Triggers/EventTrigger"]
-shape = SubResource("BoxShape3D_eu3rf")
-
-[node name="PuzzleGateLinker" type="Node" parent="Triggers/EventTrigger" node_paths=PackedStringArray("connected_gate")]
-script = ExtResource("4_3mqk5")
-connected_gate = NodePath("../../../Passages/Gate2")
-puzzle = NodePath("..")
-enable_signal = "triggered"
-use_disable_signal = false
-metadata/_custom_type_script = "uid://ckdvdouxaw4it"
-
-[node name="ObjectiveTrigger" type="Node" parent="Triggers/EventTrigger"]
-script = ExtResource("42_lxs5s")
-objective_title = "This is an objective :O"
-metadata/_custom_type_script = "uid://cjn31emt24v2q"
-
-[node name="EventTrigger2" type="Area3D" parent="Triggers"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8.7, 4.7, 0.6)
-script = ExtResource("12_ba0rh")
-metadata/_custom_type_script = "uid://dhjsvwgpbf3bx"
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Triggers/EventTrigger2"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1.25)
-shape = SubResource("BoxShape3D_ba0rh")
-
-[node name="TutorialTrigger" type="Node" parent="Triggers/EventTrigger2"]
-script = ExtResource("13_eu3rf")
-tutorial_message = "Grab the handle and jump off the edge to swing across the gap. Remember to release at the right time."
-metadata/_custom_type_script = "uid://boad7pm33g3dk"
 
 [node name="EventTrigger3" type="Area3D" parent="Triggers"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8.2, 0, -7.6)
@@ -904,10 +1087,52 @@ metadata/_custom_type_script = "uid://dhjsvwgpbf3bx"
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.45, 0)
 shape = SubResource("BoxShape3D_flyvg")
 
+[node name="EventTrigger4" type="Area3D" parent="Triggers"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 11.2, 1.8, 9.4)
+script = ExtResource("12_ba0rh")
+metadata/_custom_type_script = "uid://dhjsvwgpbf3bx"
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Triggers/EventTrigger4"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.55, 0.45, 0)
+shape = SubResource("BoxShape3D_lxs5s")
+
+[node name="TutorialTrigger" type="Node" parent="Triggers/EventTrigger4"]
+script = ExtResource("13_eu3rf")
+tutorial_message = "Use handles to swing across gaps."
+metadata/_custom_type_script = "uid://boad7pm33g3dk"
+
+[node name="EventTrigger5" type="Area3D" parent="Triggers"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.4, 1.8, 15.7)
+script = ExtResource("12_ba0rh")
+metadata/_custom_type_script = "uid://dhjsvwgpbf3bx"
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Triggers/EventTrigger5"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.55, 0.45, -0.0500002)
+shape = SubResource("BoxShape3D_36i0g")
+
+[node name="TutorialTrigger" type="Node" parent="Triggers/EventTrigger5"]
+script = ExtResource("13_eu3rf")
+tutorial_message = "Press [F] to toggle flashliight."
+metadata/_custom_type_script = "uid://boad7pm33g3dk"
+
+[node name="EventTrigger6" type="Area3D" parent="Triggers"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.3, 1.8, 19.6)
+script = ExtResource("12_ba0rh")
+metadata/_custom_type_script = "uid://dhjsvwgpbf3bx"
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Triggers/EventTrigger6"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 0.45, 0.5)
+shape = SubResource("BoxShape3D_uaoho")
+
+[node name="TutorialTrigger" type="Node" parent="Triggers/EventTrigger6"]
+script = ExtResource("13_eu3rf")
+tutorial_message = "Grab then pull the planks to remove them."
+metadata/_custom_type_script = "uid://boad7pm33g3dk"
+
 [node name="Items" type="Node" parent="."]
 
 [node name="HandItem" parent="Items" instance=ExtResource("34_v4kwe")]
-transform = Transform3D(0.0836779, -0.353504, 0.931683, -0.257911, 0.895421, 0.362909, -0.962538, -0.270659, -0.0162458, -1.92222, 0.142516, 0.921295)
+transform = Transform3D(0.700984, 0.710502, -0.0617073, -0.0564883, 0.141567, 0.988316, 0.710936, -0.689308, 0.139372, -15.8243, 0.190154, 1.41563)
 hand_scene = ExtResource("35_mvn8e")
 
 [node name="Skeleton3D" type="Skeleton3D" parent="Items/HandItem"]
@@ -1128,17 +1353,17 @@ mesh = SubResource("ArrayMesh_g5rdf")
 skin = SubResource("Skin_vi7rx")
 
 [node name="ValveItem" parent="Items" instance=ExtResource("35_qu7le")]
-transform = Transform3D(-0.325568, -0.668583, 0.668583, 0, 0.707107, 0.707107, -0.945519, 0.230211, -0.230211, -16.39, 1.285, -8.031)
+transform = Transform3D(-0.325568, -0.668583, 0.668583, 0, 0.707107, 0.707107, -0.945519, 0.230211, -0.230211, -20.19, 1.285, 2.869)
 
 [node name="PullablePlank" parent="Items" instance=ExtResource("36_ng01g")]
-transform = Transform3D(0.999189, -0.0402539, 0, 0.0402539, 0.999189, 0, 0, 0, 1, -14.6793, 0.413403, -1.6)
+transform = Transform3D(0.999189, -0.0402539, 0, 0.0402539, 0.999189, 0, 0, 0, 1, -5.9793, 2.4134, 18.2)
 
 [node name="PullablePlank2" parent="Items" instance=ExtResource("36_ng01g")]
-transform = Transform3D(-0.999688, -0.0249905, 0, 0.0249905, -0.999688, 0, 0, 0, 1, -12.4869, 1.12333, -1.6)
+transform = Transform3D(-0.999688, -0.0249905, 0, 0.0249905, -0.999688, 0, 0, 0, 1, -3.7869, 3.12333, 18.2)
 pull_off_point = -15.0
 
 [node name="Limón" parent="Items" instance=ExtResource("48_mtaok")]
-transform = Transform3D(-0.866025, 0, -0.5, 0, 1, 0, 0.5, 0, -0.866025, 4.80595, 4.2, 2.64054)
+transform = Transform3D(-0.258819, 0, 0.965926, 0, 1, 0, -0.965926, 0, -0.258819, -1.69405, 5.95, 2.64054)
 
 [node name="GrabpackItem" parent="Items" instance=ExtResource("48_u8ypr")]
 transform = Transform3D(0.965926, 0, 0.258819, 0, 1, 0, -0.258819, 0, 0.965926, 0.546447, 0.105652, -1.08763)
@@ -1146,26 +1371,81 @@ transform = Transform3D(0.965926, 0, 0.258819, 0, 1, 0, -0.258819, 0, 0.965926, 
 [node name="GrabpackOneItemMesh" parent="Items/GrabpackItem" instance=ExtResource("49_0ptqi")]
 
 [node name="GrabpackItem2" parent="Items" instance=ExtResource("48_u8ypr")]
-transform = Transform3D(-0.5, 0, 0.866025, 0, 1, 0, -0.866025, 0, -0.5, 1.3, 0.105652, -2.6)
+transform = Transform3D(-0.5, 0, 0.866025, 0, 1, 0, -0.866025, 0, -0.5, 9.6, 1.90565, 1.2)
 grabpacK_number = 2
 
 [node name="GrabpackTwoItemMesh" parent="Items/GrabpackItem2" instance=ExtResource("50_dudgs")]
 
+[node name="TutorialTrigger" type="Node" parent="Items/GrabpackItem2"]
+script = ExtResource("13_eu3rf")
+signal_name = "collected"
+tutorial_message = "Press [LMB] and [RMB] to launch the grabpacks hands hands."
+metadata/_custom_type_script = "uid://boad7pm33g3dk"
+
 [node name="Lights" type="Node" parent="."]
 
 [node name="OmniLight3D" type="OmniLight3D" parent="Lights"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -16.4, 2.1, -8)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -20.2, 2.1, 2.9)
+light_color = Color(1, 1, 0.796078, 1)
+
+[node name="OmniLight3D2" type="OmniLight3D" parent="Lights"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 22.5958, 3.8, 9.6)
+light_color = Color(1, 1, 0.796078, 1)
+
+[node name="OmniLight3D4" type="OmniLight3D" parent="Lights"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9.4958, 3.8, 15.6)
+light_color = Color(1, 1, 0.796078, 1)
+light_energy = 2.11774
+omni_range = 5.7
+script = ExtResource("54_lxs5s")
+noise = SubResource("NoiseTexture2D_36i0g")
+max_energy = 6.0
+
+[node name="OmniLight3D6" type="OmniLight3D" parent="Lights"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -19.2042, 2.7, -16.3)
+light_color = Color(1, 1, 0.796078, 1)
+light_energy = 2.11774
+omni_range = 5.7
+script = ExtResource("54_lxs5s")
+noise = SubResource("NoiseTexture2D_36i0g")
+max_energy = 6.0
+
+[node name="OmniLight3D7" type="OmniLight3D" parent="Lights"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -14.5042, 2.7, -16.3)
+light_color = Color(1, 1, 0.796078, 1)
+light_energy = 2.11774
+omni_range = 5.7
+script = ExtResource("54_lxs5s")
+noise = SubResource("NoiseTexture2D_36i0g")
+max_energy = 6.0
+
+[node name="OmniLight3D8" type="OmniLight3D" parent="Lights"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10.7042, 2.7, -16.3)
+light_color = Color(1, 1, 0.796078, 1)
+light_energy = 2.11774
+omni_range = 5.7
+script = ExtResource("54_lxs5s")
+noise = SubResource("NoiseTexture2D_36i0g")
+max_energy = 6.0
+
+[node name="OmniLight3D3" type="OmniLight3D" parent="Lights"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 24.3858, 3.8, 15.1)
+light_color = Color(1, 1, 0.796078, 1)
+
+[node name="OmniLight3D5" type="OmniLight3D" parent="Lights"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.8142, 3.8, 20.4)
 light_color = Color(1, 1, 0.796078, 1)
 
 [node name="Player" parent="." instance=ExtResource("3_bdoa4")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.3, 4.8, -2.2)
+transform = Transform3D(-1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, 3.55, 0.15, -3.2)
+flashlight_togglable = true
 enabled_hands = Array[PackedScene]([ExtResource("7_syxy8"), ExtResource("8_c5qun"), ExtResource("38_sj8vn")])
 
 [node name="PlayerRefrence" parent="." instance=ExtResource("5_teiv4")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10.4, 0.0999999, -14.6)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -20.7, 2.8, 1.4)
 
 [node name="Sprite3D" type="Sprite3D" parent="."]
-transform = Transform3D(-1.98887e-08, 0, 0.455, 0, 0.455, 0, -0.455, 0, -1.98887e-08, -2.4, 5.5, 9.1)
+transform = Transform3D(-1.98887e-08, 0, 0.455, 0, 0.455, 0, -0.455, 0, -1.98887e-08, -28.8, 5.5, 9.1)
 texture = ExtResource("39_sj8vn")
 
 [node name="Label3D" type="Label3D" parent="Sprite3D"]
@@ -1184,7 +1464,6 @@ than I'm bored and need a goal)"
 font_size = 147
 outline_size = 42
 
-[connection signal="scan_success" from="Puzzles/HandScannerRight3" to="." method="_on_hand_scanner_right_3_scan_success"]
 [connection signal="levers_down" from="Puzzles/LeverLinker" to="." method="_on_lever_linker_levers_down"]
 [connection signal="levers_up" from="Puzzles/LeverLinker" to="." method="_on_lever_linker_levers_up"]
 [connection signal="pressed" from="Puzzles/PowerDirectorButton" to="." method="_on_power_director_button_pressed"]

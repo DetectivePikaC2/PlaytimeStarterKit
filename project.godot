@@ -15,7 +15,7 @@ warnings/check_invalid_track_paths=false
 [application]
 
 config/name="PlaytimeStarterKit"
-run/main_scene="uid://dtp3lixj6uyxo"
+run/main_scene="uid://bifmmultpyw0x"
 config/features=PackedStringArray("4.4", "Forward Plus")
 run/max_fps=90
 config/icon="res://icon.svg"

@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=4 uid="uid://b6jjiwvgofq7d"]
+[gd_scene load_steps=14 format=4 uid="uid://b6jjiwvgofq7d"]
 
 [ext_resource type="Texture2D" uid="uid://bsknrdtpaemc" path="res://Player/Grabpack/Models/T_Grabpack_02_BC.png" id="1_0pakg"]
 [ext_resource type="Texture2D" uid="uid://ie5s2vu8c7" path="res://Player/Grabpack/Models/T_Grabpack_02_Nt.png" id="2_5jh2t"]
@@ -165,6 +165,66 @@ _surfaces = [{
 }]
 blend_shape_mode = 0
 
+[sub_resource type="Animation" id="Animation_0pakg"]
+resource_name = "flashlight_on"
+length = 1.5
+tracks/0/type = "rotation_3d"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Skeleton3D:JNT_R_Grabpack_FlashlightLid_06")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = PackedFloat32Array(0, 1, -0.290362, -0.637525, 0.649617, 0.29538, 0.4, 1, -0.290362, -0.637525, 0.649617, 0.29538, 0.733333, 1, -0.664873, -0.241532, 0.24074, 0.664568, 0.9, 1, -0.664873, -0.241532, 0.24074, 0.664568, 1.5, 1, -0.662513, -0.247764, 0.247142, 0.662277)
+tracks/1/type = "position_3d"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Skeleton3D:JNT_R_Grabpack_FlashlightExtension_07")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = PackedFloat32Array(0, 1, 4.12704, -0.0227599, -1.19212, 0.8, 1, 4.12704, -0.0227599, -1.19212, 1.03333, 1, 5.07942, -0.00437788, -0.229428)
+
+[sub_resource type="Animation" id="Animation_5jh2t"]
+length = 0.001
+tracks/0/type = "rotation_3d"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Skeleton3D:JNT_R_Grabpack_FlashlightLid_06")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = PackedFloat32Array(0, 1, -0.290362, -0.637525, 0.649617, 0.29538)
+tracks/1/type = "position_3d"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Skeleton3D:JNT_R_Grabpack_FlashlightExtension_07")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = PackedFloat32Array(0, 1, 4.12704, -0.0227599, -1.19212)
+
+[sub_resource type="Animation" id="Animation_6eskc"]
+resource_name = "flashlight_off"
+length = 1.5
+tracks/0/type = "rotation_3d"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Skeleton3D:JNT_R_Grabpack_FlashlightLid_06")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = PackedFloat32Array(0.5, 1, -0.662513, -0.247764, 0.247142, 0.662277, 0.766667, 1, -0.290362, -0.637525, 0.649617, 0.29538)
+tracks/1/type = "position_3d"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Skeleton3D:JNT_R_Grabpack_FlashlightExtension_07")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = PackedFloat32Array(0.5, 1, 5.07942, -0.00437788, -0.229428, 0.766667, 1, 4.12704, -0.0227599, -1.19212)
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_5jh2t"]
+_data = {
+&"RESET": SubResource("Animation_5jh2t"),
+&"flashlight_off": SubResource("Animation_6eskc"),
+&"flashlight_on": SubResource("Animation_0pakg")
+}
+
 [node name="GrabpackTwo" type="Node3D"]
 
 [node name="Skeleton3D" type="Skeleton3D" parent="."]
@@ -229,16 +289,16 @@ bones/8/name = "JNT_R_Grabpack_FlashlightLid_06"
 bones/8/parent = 5
 bones/8/rest = Transform3D(0.707152, -1.18971e-05, -0.707061, 0.707061, 2.88427e-05, 0.707152, 1.19805e-05, -1, 2.88081e-05, 3.80421, -3.75188, 16.2675)
 bones/8/enabled = true
-bones/8/position = Vector3(3.80421, -3.75188, 16.2675)
-bones/8/rotation = Quaternion(-0.653279, -0.270577, 0.270577, 0.653301)
+bones/8/position = Vector3(3.80421, -3.75186, 16.2675)
+bones/8/rotation = Quaternion(-0.290362, -0.637525, 0.649617, 0.29538)
 bones/8/scale = Vector3(1, 1, 1)
 bones/9/name = "JNT_R_Grabpack_FlashlightExtension_07"
 bones/9/parent = 8
 bones/9/rest = Transform3D(0.707125, 4.84849e-08, -0.707088, -5.1249e-08, 1, 1.7318e-08, 0.707088, 2.39916e-08, 0.707125, 5.30597, -1.39361e-06, -7.15256e-07)
 bones/9/enabled = true
-bones/9/position = Vector3(5.30597, -1.39361e-06, -7.15256e-07)
-bones/9/rotation = Quaternion(1.80583e-09, -0.382671, -2.69876e-08, 0.923885)
-bones/9/scale = Vector3(1, 1, 1)
+bones/9/position = Vector3(4.12704, -0.0227599, -1.19212)
+bones/9/rotation = Quaternion(1.33569e-09, -0.382671, -2.81762e-08, 0.923885)
+bones/9/scale = Vector3(0.999999, 1, 1)
 bones/10/name = "JNT_R_Grabpack_FlashlightExtension_end_027"
 bones/10/parent = 9
 bones/10/rest = Transform3D(1, 1.73472e-18, 1.07467e-20, -1.73472e-18, 1, -1.69407e-21, -1.07467e-20, 1.69407e-21, 1, 7.10543e-15, 20, -7.10543e-15)
@@ -436,7 +496,14 @@ skeleton = NodePath("../Skeleton3D")
 left_gun_bone_index = 21
 right_gun_bone_index = 5
 attachment_size = Vector3(0.025, 0.025, 0.025)
+use_flashlight_animation = true
 
 [node name="GrabpackSwitchHands" type="Node" parent="."]
 
 [node name="GrabpackUseIKTube" type="Node" parent="."]
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_5jh2t")
+}
+speed_scale = 2.75

@@ -1,4 +1,4 @@
-[gd_scene load_steps=40 format=4 uid="uid://cd47wb6hqy68j"]
+[gd_scene load_steps=48 format=4 uid="uid://cd47wb6hqy68j"]
 
 [ext_resource type="Script" uid="uid://b0pbgf7sfgbhs" path="res://Objects/Gameplay/ControlPanel/keypad_button.gd" id="1_8fabb"]
 [ext_resource type="Script" uid="uid://cp5gdim1brsvd" path="res://Objects/Gameplay/ControlPanel/keypad.gd" id="1_fhc4h"]
@@ -6,6 +6,22 @@
 [ext_resource type="Texture2D" uid="uid://cic1lcs3w54qs" path="res://Objects/Gameplay/ControlPanel/Mesh/T_ConsolsKeypad_C_BC.png" id="3_gkafu"]
 [ext_resource type="Texture2D" uid="uid://c4tqsd4babujl" path="res://Objects/Gameplay/ControlPanel/Mesh/T_ConsolsKeypad_C_N.png" id="4_n4xvr"]
 [ext_resource type="Texture2D" uid="uid://5knvg5bpeirh" path="res://Objects/Gameplay/ControlPanel/Mesh/T_ConsolsKeypad_C_ORM.png" id="5_5uesc"]
+[ext_resource type="Script" uid="uid://bhunsqjesn8kw" path="res://Objects/Gameplay/interaction_indicator.gd" id="7_n4xvr"]
+[ext_resource type="AudioStream" uid="uid://e3g0uurq0h7c" path="res://Objects/Gameplay/ControlPanel/Sound/SW_SFX_ColorCode_KeyPad_Beep_01.wav" id="8_n4xvr"]
+[ext_resource type="AudioStream" uid="uid://d24aqmcwtipu" path="res://Objects/Gameplay/ControlPanel/Sound/SW_SFX_ColorCode_KeyPad_Unlock.wav" id="9_4ieq4"]
+[ext_resource type="AudioStream" uid="uid://f3rdg3ygspme" path="res://Objects/Gameplay/ControlPanel/Sound/SW_Keypad_Fail.wav" id="10_8qhx7"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_gkafu"]
+shading_mode = 0
+
+[sub_resource type="SphereMesh" id="SphereMesh_n4xvr"]
+material = SubResource("StandardMaterial3D_gkafu")
+radius = 0.02
+height = 0.04
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_8qhx7"]
+resource_local_to_scene = true
+radius = 2.5
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_4ieq4"]
 size = Vector3(0.1, 0.1, 0.1)
@@ -402,13 +418,67 @@ _surfaces = [{
 blend_shape_mode = 0
 shadow_mesh = SubResource("ArrayMesh_noeea")
 
+[sub_resource type="BoxShape3D" id="BoxShape3D_gkafu"]
+size = Vector3(0.4, 0.1, 0.3)
+
 [node name="Keypad" type="StaticBody3D"]
 script = ExtResource("1_fhc4h")
 code = 123
 
 [node name="Buttons" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.1, 0, 0)
+
+[node name="CircleIndicator" type="Node3D" parent="Buttons"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.3, 0, 0)
+script = ExtResource("7_n4xvr")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Buttons/CircleIndicator"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0931213, 0)
+mesh = SubResource("SphereMesh_n4xvr")
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="Buttons/CircleIndicator"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.1, 0.0931213, 0)
+mesh = SubResource("SphereMesh_n4xvr")
+
+[node name="MeshInstance3D3" type="MeshInstance3D" parent="Buttons/CircleIndicator"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.2, 0.0931213, 0)
+mesh = SubResource("SphereMesh_n4xvr")
+
+[node name="MeshInstance3D4" type="MeshInstance3D" parent="Buttons/CircleIndicator"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.3, 0.0931213, 0)
+mesh = SubResource("SphereMesh_n4xvr")
+
+[node name="MeshInstance3D5" type="MeshInstance3D" parent="Buttons/CircleIndicator"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.1, 0.0931213, -0.1)
+mesh = SubResource("SphereMesh_n4xvr")
+
+[node name="MeshInstance3D6" type="MeshInstance3D" parent="Buttons/CircleIndicator"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.2, 0.0931213, -0.1)
+mesh = SubResource("SphereMesh_n4xvr")
+
+[node name="MeshInstance3D7" type="MeshInstance3D" parent="Buttons/CircleIndicator"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.3, 0.0931213, -0.1)
+mesh = SubResource("SphereMesh_n4xvr")
+
+[node name="MeshInstance3D8" type="MeshInstance3D" parent="Buttons/CircleIndicator"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.1, 0.0931213, 0.1)
+mesh = SubResource("SphereMesh_n4xvr")
+
+[node name="MeshInstance3D9" type="MeshInstance3D" parent="Buttons/CircleIndicator"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.2, 0.0931213, 0.1)
+mesh = SubResource("SphereMesh_n4xvr")
+
+[node name="MeshInstance3D10" type="MeshInstance3D" parent="Buttons/CircleIndicator"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.3, 0.0931213, 0.1)
+mesh = SubResource("SphereMesh_n4xvr")
+
+[node name="Area" type="Area3D" parent="Buttons/CircleIndicator"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Buttons/CircleIndicator/Area"]
+shape = SubResource("SphereShape3D_8qhx7")
 
 [node name="Button0" type="Node3D" parent="Buttons"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.3, 0, 0)
 script = ExtResource("1_8fabb")
 
 [node name="BasicInteraction" type="Area3D" parent="Buttons/Button0"]
@@ -426,7 +496,7 @@ skeleton = NodePath("")
 surface_material_override/0 = SubResource("ORMMaterial3D_5ae8w")
 
 [node name="Button1" type="Node3D" parent="Buttons"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.1)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.2, 0, 0.1)
 script = ExtResource("1_8fabb")
 button_number = 1
 
@@ -445,7 +515,7 @@ skeleton = NodePath("")
 surface_material_override/0 = SubResource("ORMMaterial3D_u6e6b")
 
 [node name="Button2" type="Node3D" parent="Buttons"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.1)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.2, 0, 0)
 script = ExtResource("1_8fabb")
 button_number = 2
 
@@ -464,7 +534,7 @@ skeleton = NodePath("")
 surface_material_override/0 = SubResource("ORMMaterial3D_u6e6b")
 
 [node name="Button3" type="Node3D" parent="Buttons"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.1, 0, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.2, 0, -0.1)
 script = ExtResource("1_8fabb")
 button_number = 3
 
@@ -502,7 +572,7 @@ skeleton = NodePath("")
 surface_material_override/0 = SubResource("ORMMaterial3D_u6e6b")
 
 [node name="Button5" type="Node3D" parent="Buttons"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.1, 0, -0.1)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.1, 0, 0)
 script = ExtResource("1_8fabb")
 button_number = 5
 
@@ -521,7 +591,7 @@ skeleton = NodePath("")
 surface_material_override/0 = SubResource("ORMMaterial3D_u6e6b")
 
 [node name="Button6" type="Node3D" parent="Buttons"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.2, 0, 0.1)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.1, 0, -0.1)
 script = ExtResource("1_8fabb")
 button_number = 6
 
@@ -540,7 +610,7 @@ skeleton = NodePath("")
 surface_material_override/0 = SubResource("ORMMaterial3D_u6e6b")
 
 [node name="Button7" type="Node3D" parent="Buttons"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.2, 0, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.1)
 script = ExtResource("1_8fabb")
 button_number = 7
 
@@ -559,7 +629,6 @@ skeleton = NodePath("")
 surface_material_override/0 = SubResource("ORMMaterial3D_u6e6b")
 
 [node name="Button8" type="Node3D" parent="Buttons"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.2, 0, -0.1)
 script = ExtResource("1_8fabb")
 button_number = 8
 
@@ -578,7 +647,7 @@ skeleton = NodePath("")
 surface_material_override/0 = SubResource("ORMMaterial3D_u6e6b")
 
 [node name="Button9" type="Node3D" parent="Buttons"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.3, 0, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.45058e-09, 0, -0.1)
 script = ExtResource("1_8fabb")
 button_number = 9
 
@@ -595,3 +664,20 @@ transform = Transform3D(-4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0, 1, 0, 0, 
 mesh = SubResource("ArrayMesh_spalr")
 skeleton = NodePath("")
 surface_material_override/0 = SubResource("ORMMaterial3D_u6e6b")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.05, 0.05, 0)
+shape = SubResource("BoxShape3D_gkafu")
+
+[node name="Press" type="AudioStreamPlayer3D" parent="."]
+stream = ExtResource("8_n4xvr")
+volume_db = -5.0
+
+[node name="Success" type="AudioStreamPlayer3D" parent="."]
+stream = ExtResource("9_4ieq4")
+
+[node name="Reset" type="AudioStreamPlayer3D" parent="."]
+stream = ExtResource("10_8qhx7")
+
+[connection signal="body_entered" from="Buttons/CircleIndicator/Area" to="Buttons/CircleIndicator" method="_on_area_body_entered"]
+[connection signal="body_exited" from="Buttons/CircleIndicator/Area" to="Buttons/CircleIndicator" method="_on_area_body_exited"]
