@@ -87,6 +87,9 @@ func scan_finished():
 		if Grabpack.right_hand.current_hand_node.name == required_hand:
 			set_state(2)
 			emit_signal("scan_success")
+		elif Grabpack.right_hand.current_hand_node.name == "OmniHand" && required_hand == "RedHand":
+			set_state(2)
+			emit_signal("scan_success")
 		else:
 			set_state(3)
 			emit_signal("scan_incorrect")

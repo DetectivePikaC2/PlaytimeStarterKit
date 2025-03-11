@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=4 uid="uid://cjqgt71jp0xmh"]
+[gd_scene load_steps=21 format=4 uid="uid://cjqgt71jp0xmh"]
 
 [ext_resource type="Material" uid="uid://dl7krlcnai0qx" path="res://Level/Assets/Materials/ProtoDark.tres" id="1_fewn2"]
 [ext_resource type="PackedScene" uid="uid://dkty77argxwyc" path="res://Player/player.tscn" id="2_2v2lr"]
@@ -11,6 +11,9 @@
 [ext_resource type="Script" uid="uid://ckdvdouxaw4it" path="res://Objects/Gameplay/Puzzles/ConnectionComponents/puzzle_gate_linker.gd" id="7_k63y4"]
 [ext_resource type="PackedScene" uid="uid://d0a61yl37s346" path="res://Objects/Gameplay/ControlPanel/keycard.tscn" id="7_xfif6"]
 [ext_resource type="Script" uid="uid://cr7vgioayori4" path="res://Objects/VFX/WireCurves/power_cable.gd" id="8_k63y4"]
+[ext_resource type="PackedScene" uid="uid://dd7igduoonl0g" path="res://Player/Grabpack/Hands/omni.tscn" id="12_5e8g2"]
+[ext_resource type="PackedScene" uid="uid://dlrkwthm6js8e" path="res://Player/Grabpack/Hands/red.tscn" id="12_rtk1f"]
+[ext_resource type="PackedScene" uid="uid://djxegucg0r1te" path="res://Objects/Gameplay/Puzzles/Scanners/scanner_right_ch4.tscn" id="14_q6awt"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_knc6i"]
 sky_horizon_color = Color(0.662243, 0.671743, 0.686743, 1)
@@ -62,6 +65,12 @@ environment = SubResource("Environment_xfif6")
 [node name="CSGBox3D" type="CSGBox3D" parent="CSG"]
 use_collision = true
 size = Vector3(12.7, 0.2, 10.3)
+material = ExtResource("1_fewn2")
+
+[node name="CSGBox3D2" type="CSGBox3D" parent="CSG"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.74431, -4.79292)
+use_collision = true
+size = Vector3(12.7, 3.68861, 0.71416)
 material = ExtResource("1_fewn2")
 
 [node name="Puzzle" type="Node" parent="."]
@@ -119,3 +128,21 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.2, 0.1, 2.1)
 transform = Transform3D(0.5, -0.866025, -2.58096e-08, 0, 2.98023e-08, -1, 0.866025, 0.5, 1.49012e-08, -1.9, 0.109918, 2.5)
 
 [node name="Player" parent="." instance=ExtResource("2_2v2lr")]
+starting_grabpack = 2
+enabled_hands = Array[PackedScene]([ExtResource("12_rtk1f"), ExtResource("12_5e8g2")])
+
+[node name="HandScannerRight" parent="." instance=ExtResource("14_q6awt")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.199525, 1.05926, -4.46238)
+
+[node name="HandScannerRight2" parent="." instance=ExtResource("14_q6awt")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.301405, 1.05926, -4.46238)
+
+[node name="HandScannerRight3" parent="." instance=ExtResource("14_q6awt")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.199525, 1.77379, -4.46238)
+required_hand = "OmniHand"
+scanner_color = Color(0.665604, 1.96133e-06, 4.33177e-07, 1)
+
+[node name="HandScannerRight4" parent="." instance=ExtResource("14_q6awt")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.301405, 1.77379, -4.46238)
+required_hand = "OmniHand"
+scanner_color = Color(0.665604, 1.96133e-06, 4.33177e-07, 1)
